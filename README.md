@@ -60,7 +60,9 @@ Handles malformed inputs, negative weights, and self-loops with detailed error h
 🛠️ Implementation Details
 
 📁 Components
+
 1. Serial SSSP (serial_execution.cpp)
+   
 Implements Dijkstra’s algorithm for static and dynamic graphs.
 
 Applies edge updates and stores results.
@@ -70,6 +72,7 @@ g++ -std=c++11 serial_execution.cpp -o serial_sssp
 ./serial_sssp sample_graph.txt sample_updates.txt 10000 output.txt
 
 2. Parallel SSSP (main.cpp, graph.cpp, sssp.cpp, utils.cpp, opencl_utils.cpp)
+   
 MPI + OpenMP + METIS + OpenCL integration for full hybrid parallelism.
 
 
@@ -79,17 +82,23 @@ mpicxx -O3 -march=native -funroll-loops -fopenmp -DCL_TARGET_OPENCL_VERSION=200 
 
 mpirun --use-hwthread-cpus --bind-to core:overload-allowed -np 4 \
 ./sssp sample_graph.txt sample_updates.txt 10000 output.txt --openmp --opencl
+
 3. OpenCL Kernel (relax_edges.cl)
+   
 Optimized GPU kernel using atomic operations for safe edge relaxations.
 
-4. Python Visualization (plotGraph.py)
+5. Python Visualization (plotGraph.py)
+
 Benchmarks performance across 2–4 MPI processes.
 
 Generates sssp_performance.png.
 
 📊 Algorithm Workflow
+
 🔁 Two-Phase Update (based on Khanda et al. 2022)
+
 Phase 1: Identify Affected Subgraph
+
 Processes edge insertions/deletions in parallel.
 
 Flags affected vertices (Affected, Affected_Del).
@@ -97,11 +106,13 @@ Flags affected vertices (Affected, Affected_Del).
 Handles deletions by disconnecting subtrees; handles insertions by tentative relaxation.
 
 Phase 2: Update Affected Subgraph
+
 Lock-free, asynchronous edge relaxations until convergence.
 
 MPI communicates boundary updates for cross-partition consistency.
 
 📚 Key Data Structures
+
 Adjacency List: Efficient graph representation.
 
 SSSP Tree: Stores distances, parents, and update flags.
@@ -109,6 +120,7 @@ SSSP Tree: Stores distances, parents, and update flags.
 Edge Arrays: Ins_k, Del_k for dynamic updates.
 
 ⚙️ Performance Highlights
+
 🚀 Speedup: Up to 8.5× over Gunrock (GPU) and 5× over Galois (CPU) for moderate updates.
 
 🌐 Scalability: Tested on graphs with ~16M vertices, 250M edges.
@@ -118,15 +130,19 @@ Edge Arrays: Ins_k, Del_k for dynamic updates.
 🔀 Heterogeneous Computing: Unified CPU (OpenMP) + GPU (OpenCL) processing pipeline.
 
 🧰 Prerequisites
+
 🖥️ OS
+
 Linux (Ubuntu recommended) or Windows with WSL2
 
 🔧 Compilers
+
 g++ (GCC 9.x+) with C++17 support
 
 mpicxx (OpenMPI 4.x / MPICH 3.x)
 
 📦 Required Libraries
+
 MPI (OpenMPI or MPICH)
 
 OpenMP (bundled with GCC)
@@ -136,6 +152,7 @@ OpenCL (v2.0+)
 METIS (v5.1.0+)
 
 🐍 Python
+
 Python 3.6+
 
 Install dependencies with:
@@ -143,6 +160,7 @@ Install dependencies with:
 pip install matplotlib
 
 💻 Hardware
+
 Multi-core CPU (8+ cores recommended)
 
 OpenCL-compatible GPU (optional but recommended)
