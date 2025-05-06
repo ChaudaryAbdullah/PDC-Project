@@ -87,7 +87,7 @@ mpirun --use-hwthread-cpus --bind-to core:overload-allowed -np 4 \
    
 Optimized GPU kernel using atomic operations for safe edge relaxations.
 
-5. Python Visualization (plotGraph.py)
+4. Python Visualization (plotGraph.py)
 
 Benchmarks performance across 2–4 MPI processes.
 
@@ -131,8 +131,7 @@ Edge Arrays: Ins_k, Del_k for dynamic updates.
 
 🧰 Prerequisites
 
-🖥️ OS
-
+🖥️ OS: 
 Linux (Ubuntu recommended) or Windows with WSL2
 
 🔧 Compilers
