@@ -1,8 +1,10 @@
 ⚡ Parallel SSSP Update Framework for Dynamic Networks
+
 A scalable, platform-independent parallel implementation of the Single-Source Shortest Path (SSSP) update algorithm for large-scale dynamic networks, leveraging MPI, OpenMP, OpenCL, and METIS.
 Developed for the Parallel and Distributed Computing (PDC) course at FAST-NUCES, Islamabad.
 
 📖 Project Overview
+
 Real-world networks — like social graphs, communication systems, and biological networks — are large and dynamic, with millions of vertices and frequent edge insertions/deletions. Traditional SSSP algorithms like Dijkstra’s are inefficient in such environments due to costly recomputation.
 
 Inspired by Khanda et al. (2022), this project implements a two-phase parallel algorithm that incrementally updates the SSSP tree, avoiding full recomputation. Our implementation scales across distributed-memory clusters and heterogeneous systems using:
@@ -16,6 +18,7 @@ Inspired by Khanda et al. (2022), this project implements a two-phase parallel a
 🖥️ OpenCL for GPU-accelerated edge relaxation
 
 👥 Team
+
 Abdullah Shakir
 
 Messam Raza
@@ -55,6 +58,7 @@ Supports graphs with up to 16M vertices and 250M edges.
 Handles malformed inputs, negative weights, and self-loops with detailed error handling.
 
 🛠️ Implementation Details
+
 📁 Components
 1. Serial SSSP (serial_execution.cpp)
 Implements Dijkstra’s algorithm for static and dynamic graphs.
@@ -64,6 +68,7 @@ Applies edge updates and stores results.
 
 g++ -std=c++11 serial_execution.cpp -o serial_sssp
 ./serial_sssp sample_graph.txt sample_updates.txt 10000 output.txt
+
 2. Parallel SSSP (main.cpp, graph.cpp, sssp.cpp, utils.cpp, opencl_utils.cpp)
 MPI + OpenMP + METIS + OpenCL integration for full hybrid parallelism.
 
